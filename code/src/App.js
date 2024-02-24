@@ -1,16 +1,39 @@
+import Body from './components/Body';
 import SignUp from './components/SignUp';
 
-function App() {
-  const electron = window?.electron;
-  // console.log(electron?.homedir());
-  // console.log(electron?.osVersion());
-  // console.log(electron?.freeMemory());
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
+const AppLayout = () => {
   return (
-    <div className="App">
-      <SignUp />
+    <div>
+      <Outlet />
     </div>
   );
-}
+};
+
+const appRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppLayout />,
+    children: [
+      {
+        path: '/',
+        element: <SignUp />,
+      },
+      {
+        path: '/Body',
+        element: <Body />,
+      },
+    ],
+  },
+]);
+
+const App = () => {
+  return (
+    <div>
+      <RouterProvider router={appRouter} />
+    </div>
+  );
+};
 
 export default App;
